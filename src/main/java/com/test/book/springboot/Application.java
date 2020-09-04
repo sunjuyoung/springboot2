@@ -2,11 +2,13 @@ package com.test.book.springboot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 /**
  * 스프링 부트 설정과 bean읽기 생성 관리
  * 이 위치부터 읽기 때문에 항상 프로젝트 최상단에 위치해야한다.
  */
+@EnableJpaAuditing //JPA Auditing
 @SpringBootApplication
 public class Application {
     public static void main(String[] args) {

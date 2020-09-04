@@ -14,7 +14,7 @@ public class PostsApiController {
     private final PostsService service;
 
     /**
-     *
+     *저장
      * @param dto
      * @return
      */
@@ -24,11 +24,22 @@ public class PostsApiController {
     }
 
 
+    /**
+     * 수정
+     * @param dto
+     * @param id
+     * @return
+     */
     @PutMapping("/api/v1/posts/{id}")
     public Long update(@RequestBody PostsUpdateRequestDto dto, @PathVariable Long id){
         return service.update(dto, id);
     }
 
+    /**
+     * 조회
+     * @param id
+     * @return
+     */
     @GetMapping("/api/v1/posts/{id}")
     public PostsResponseDto findById(@PathVariable Long id){
         return service.findById(id);

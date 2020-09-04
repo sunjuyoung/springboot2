@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -60,6 +61,9 @@ public class PostsApiControllerTest {
 
     @Test
     public void Posts_register() throws Exception{
+        //JPA Auditing
+        LocalDateTime now = LocalDateTime.of(2019,6,4,0,0,0);
+
         PostsSaveRequestDto dto = PostsSaveRequestDto.builder()
                 .author("t01").content("test01").title("title").build();
 
@@ -72,6 +76,7 @@ public class PostsApiControllerTest {
 
         List<Posts> all = postsRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo("title");
+        assertThat(all.get(0).getCreateDate()).isAfter(now);
 
     }
 
@@ -100,4 +105,6 @@ public class PostsApiControllerTest {
         assertThat(list.get(0).getTitle()).isEqualTo(expectedTitle);
 
     }
+
+
 }
