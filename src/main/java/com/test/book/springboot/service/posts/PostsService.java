@@ -2,6 +2,7 @@ package com.test.book.springboot.service.posts;
 
 import com.test.book.springboot.domain.posts.Posts;
 import com.test.book.springboot.domain.posts.PostsRepository;
+import com.test.book.springboot.web.dto.PostsListResponseDto;
 import com.test.book.springboot.web.dto.PostsResponseDto;
 import com.test.book.springboot.web.dto.PostsSaveRequestDto;
 import com.test.book.springboot.web.dto.PostsUpdateRequestDto;
@@ -9,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -36,9 +39,36 @@ public class PostsService {
     }
 
 
+    //조회
     public PostsResponseDto findById(Long id){
         Posts posts = postsRepository.findById(id).orElseThrow(()->
                 new IllegalArgumentException("해당 사용자가 없습니다"));
         return new PostsResponseDto(posts);
     }
+
+    //리스트
+    @Transactional
+    public List<PostsListResponseDto> findAllDesc(){
+
+        return postsRepository.findAllDesc().stream()
+                .map(PostsListResponseDto::new)//.map(posts-> new PostsListResponseDto(posts))
+                .collect(Collectors.toList());
+    }
+
+
+
+    public void delete(Long id){
+       /* Posts posts = postsRepository.findById(id).orElseThrow(()->
+                new IllegalArgumentException("해당사용자가 없습니다"));*/
+        //deleteById 메소드 이용도 가능
+        //postsRepository.delete(posts);
+        try {
+            postsRepository.deleteById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
 }
