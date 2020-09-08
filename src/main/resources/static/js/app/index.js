@@ -1,4 +1,4 @@
-var index = {
+var main = {
     init :function () {
         var _this = this;
         //저장 버튼
@@ -10,9 +10,11 @@ var index = {
             _this.update();
         });
         //삭제 버튼
-        $('#btn-delete').on('click',function () {
+
+        $('#btn-delete').on('click', function () {
             _this.delete();
-        })
+        });
+
 
     },
     save:function () {
@@ -41,6 +43,7 @@ var index = {
             content:$('#content').val()
         }
         var id = $('#id').val();
+
         $.ajax({
             type: 'PUT',
             url:'/api/v1/posts/'+id,
@@ -54,20 +57,19 @@ var index = {
             alert(JSON.stringify(error));
         })
     },
-    delete:function () {
+    delete : function () {
         var id = $('#id').val();
         $.ajax({
-            Type:'DELETE',
-            url:'/api/v1/posts/'+id,
-            dataType:'json',
+            type: 'DELETE',
+            url: '/api/v1/posts/'+id,
+            dataType: 'json',
             contentType:'application/json; charset=utf-8'
-        }).done(function () {
-            alert(id+'번 삭제 완료');
-            window.location.href='/';
-
+        }).done(function() {
+            alert(id+'번 글이 삭제되었습니다.');
+            window.location.href = '/';
         }).fail(function (error) {
             alert(JSON.stringify(error));
-        })
+        });
     }
 }
-index.init();
+main.init();

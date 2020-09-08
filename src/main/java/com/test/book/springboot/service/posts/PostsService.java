@@ -62,12 +62,7 @@ public class PostsService {
                 new IllegalArgumentException("해당사용자가 없습니다"));*/
         //deleteById 메소드 이용도 가능
         //postsRepository.delete(posts);
-        try {
             postsRepository.deleteById(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
 
     }
 
